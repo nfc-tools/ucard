@@ -29,13 +29,17 @@ main (void)
 {
     uint8_t issuer_key_data[16];
 
+    nfc_context *ctx;
+
     nfc_connstring nfc_devices[8];
     size_t nfc_device_count;
 
-    nfc_device_count = nfc_list_devices (NULL, nfc_devices, 8);
+    nfc_init (&ctx);
+
+    nfc_device_count = nfc_list_devices (ctx, nfc_devices, 8);
 
     for (size_t n = 0; n < nfc_device_count; n++) {
-	nfc_device *nfc_device = nfc_open (NULL, nfc_devices[n]);
+	nfc_device *nfc_device = nfc_open (ctx, nfc_devices[n]);
 
 	MifareTag *tags = freefare_get_tags (nfc_device);
 	for (int i = 0; tags[i]; i++) {
@@ -94,6 +98,8 @@ end:
 
 	nfc_close (nfc_device);
     }
+
+    nfc_exit (ctx);
 
     exit(EXIT_SUCCESS);
 }

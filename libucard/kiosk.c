@@ -27,10 +27,16 @@
 
 #include "ucard_internal.h"
 
+nfc_context *ucard_nfc_context;
+
 struct kiosk *
 kiosk_new (void)
 {
     struct kiosk *res;
+
+    if (!ucard_nfc_context) {
+	nfc_init (&ucard_nfc_context);
+    }
 
     if ((res = malloc (sizeof (*res)))) {
 	res->last_error = LIBUCARD_SUCCESS;
@@ -50,7 +56,7 @@ kiosk_devices_scan (struct kiosk *kiosk)
     nfc_connstring nfc_devices[8];
     size_t nfc_device_count;
 
-    nfc_device_count = nfc_list_devices (NULL, nfc_devices, 8);
+    nfc_device_count = nfc_list_devices (ucard_nfc_context, nfc_devices, 8);
 
     for (size_t n = 0; n < nfc_device_count; n++) {
 	fprintf (stderr, "[Kiosk] Found device %d: %s\n", (int) n, nfc_devices[n]);
@@ -157,7 +163,7 @@ kiosk_run (void *user_data)
 
     kiosk_device->running = true;
 
-    nfc_device *nfc_device = nfc_open (NULL, kiosk_device->connstring);
+    nfc_device *nfc_device = nfc_open (ucard_nfc_context, kiosk_device->connstring);
 
     bool quit = false;
 

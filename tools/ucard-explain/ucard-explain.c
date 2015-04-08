@@ -34,15 +34,19 @@ uint8_t admin_key_data[16];
 int
 main (void)
 {
+    nfc_context *ctx;
+
     nfc_connstring nfc_devices[MAX_NFC_DEVICES];
     size_t nfc_device_count;
 
-    nfc_device_count = nfc_list_devices (NULL, nfc_devices, MAX_NFC_DEVICES);
+    nfc_init (&ctx);
+
+    nfc_device_count = nfc_list_devices (ctx, nfc_devices, MAX_NFC_DEVICES);
 
     bool aborting = false;
 
     for (size_t n = 0; (!aborting) && (n < nfc_device_count); n++) {
-	nfc_device *nfc_device = nfc_open (NULL, nfc_devices[n]);
+	nfc_device *nfc_device = nfc_open (ctx, nfc_devices[n]);
 	MifareTag *tags = freefare_get_tags (nfc_device);
 	for (int i = 0; (!aborting) && tags[i]; i++) {
 	    if (DESFIRE == freefare_get_tag_type (tags[i])) {
@@ -67,6 +71,8 @@ main (void)
 	}
 	freefare_free_tags (tags);
     }
+
+    nfc_exit (ctx);
 
     exit((aborting) ? 1 : 0);
 }

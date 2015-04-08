@@ -126,13 +126,17 @@ main (int argc, char *argv[])
     MifareDESFireKey null_des_key = mifare_desfire_des_key_new (null_key_data);
     MifareDESFireKey null_aes_key = mifare_desfire_aes_key_new (null_key_data);
 
+    nfc_context *ctx;
+
     nfc_connstring nfc_devices[8];
     size_t nfc_device_count;
 
-    nfc_device_count = nfc_list_devices (NULL, nfc_devices, 8);
+    nfc_init (&ctx);
+
+    nfc_device_count = nfc_list_devices (ctx, nfc_devices, 8);
 
     for (size_t n = 0; n < nfc_device_count; n++) {
-	nfc_device *nfc_device = nfc_open(NULL, nfc_devices[n]);
+	nfc_device *nfc_device = nfc_open(ctx, nfc_devices[n]);
 
 	MifareTag *tags = freefare_get_tags (nfc_device);
 	for (int i = 0; tags[i]; i++) {
@@ -213,6 +217,8 @@ main (int argc, char *argv[])
     mifare_desfire_key_free (card_issuer_key);
     mifare_desfire_key_free (null_aes_key);
     mifare_desfire_key_free (null_des_key);
+
+    nfc_exit (ctx);
 
     exit(EXIT_SUCCESS);
 }
