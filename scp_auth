@@ -1,7 +1,0 @@
-#!/bin/sh
-# Fichier "scp_auth"
-
-scp /home/audrey/Projets/internal-softwares/ucard/auth.txt root@$1:./../usr
-
-
-
