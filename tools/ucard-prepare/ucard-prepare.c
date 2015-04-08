@@ -145,7 +145,7 @@ main (int argc, char *argv[])
 
 		/* Actually setup the card */
 
-		printf ("Fond Mifare DESFire with UID: %s\n", freefare_get_tag_uid (tag));
+		printf ("Found Mifare DESFire with UID: %s\n", freefare_get_tag_uid (tag));
 
 		/*
 		 * Master Application
