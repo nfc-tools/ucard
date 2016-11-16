@@ -1,7 +1,7 @@
 # $Id$
 
 AM_CFLAGS = @LIBFREEFARE_CFLAGS@
-INCLUDES = -I $(top_srcdir)/libucard
+AM_CPPFLAGS = -I $(top_srcdir)/libucard
 
 bin_PROGRAMS = ucard-recover-owner
 

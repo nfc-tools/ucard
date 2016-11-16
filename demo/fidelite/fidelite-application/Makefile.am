@@ -1,6 +1,6 @@
 # $Id$
 AM_CFLAGS = @LIBFREEFARE_CFLAGS@
-INCLUDES = -I $(top_srcdir)/libucard -I $(top_srcdir)/common
+AM_CPPFLAGS = -I $(top_srcdir)/libucard -I $(top_srcdir)/common
 
 bin_PROGRAMS = fidelite-application
 
