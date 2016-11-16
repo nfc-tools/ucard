@@ -9,5 +9,7 @@ digraph code_generation {
 	c_src [label="application.c"];
 	h_hdr [label="application.h"];
 
-	app -> ucard -> { h_hdr, c_src };
-};
+	app -> ucard;
+	ucard -> h_hdr;
+	ucard -> c_src;
+}

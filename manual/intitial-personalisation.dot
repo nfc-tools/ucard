@@ -5,4 +5,4 @@ digraph initial_personalisation {
 
     transport -> initialised [label="ucard_init()", texlbl="\texttt{ucard\_init()}"];
     initialised -> personalised [label="ucard_personalise()", texlbl="\texttt{ucard\_personalise()}"];
-};
+}
