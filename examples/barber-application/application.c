@@ -32,7 +32,7 @@
 
 
 static int	 on_card_presented (struct ucard *ucard, struct ucard_application *ucard_application);
-static int	 application_setup (MifareTag tag, const MifareDESFireAID aid, MifareDESFireKey access_key);
+static int	 application_setup (FreefareTag tag, const MifareDESFireAID aid, MifareDESFireKey access_key);
 
 uint8_t master_key_data[] = { 0x98, 0x4a, 0x80, 0x66, 0x4a, 0x60, 0x2e, 0xa6, 0xe5, 0x69, 0xa1, 0xbf, 0xb7, 0x05, 0x1d, 0x5f };
 uint8_t public_key_data[] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
@@ -64,7 +64,7 @@ main (void)
 #define COUNTER_RW_KEYNO 0
 
 static int
-application_setup (MifareTag tag, const MifareDESFireAID aid, MifareDESFireKey access_key)
+application_setup (FreefareTag tag, const MifareDESFireAID aid, MifareDESFireKey access_key)
 {
     int res;
 

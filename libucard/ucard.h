@@ -55,7 +55,7 @@ const char	*libucard_strerror (const int errnum);
 char		*libucard_strerror_r (const int errnum, char *strbuf, const size_t buflen);
 
 /* Calback functions */
-typedef int	 (*ucard_application_setup_callback)(MifareTag tag, MifareDESFireAID aid, MifareDESFireKey access_key);
+typedef int	 (*ucard_application_setup_callback)(FreefareTag tag, MifareDESFireAID aid, MifareDESFireKey access_key);
 typedef int	 (*ucard_presented_callback)(struct ucard *ucard, struct ucard_application *application);
 typedef int	 (*password_request_callback)(const char *message, char *password, size_t max_length);
 
@@ -82,8 +82,8 @@ int		 kiosk_device_enable (struct kiosk_device *device);
 int		 kiosk_device_disable (struct kiosk_device *device);
 
 /* ucard functions */
-struct ucard	*ucard_new (MifareTag tag);
-MifareTag	 ucard_get_tag (struct ucard *ucard);
+struct ucard	*ucard_new (FreefareTag tag);
+FreefareTag	 ucard_get_tag (struct ucard *ucard);
 void		 ucard_derivate_password (const char *pass, int passlen, int keylen, unsigned char *out);
 
 int		 ucard_authenticate (struct ucard *ucard, const uint8_t key_no, MifareDESFireKey key);

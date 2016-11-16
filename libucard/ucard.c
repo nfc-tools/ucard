@@ -26,7 +26,7 @@
 #include "ucard_internal.h"
 
 struct ucard *
-ucard_new (MifareTag tag)
+ucard_new (FreefareTag tag)
 {
     struct ucard *res;
     if ((res = malloc (sizeof (*res)))) {
@@ -40,7 +40,7 @@ ucard_new (MifareTag tag)
     return res;
 }
 
-MifareTag
+FreefareTag
 ucard_get_tag (struct ucard *ucard)
 {
     return ucard->tag;

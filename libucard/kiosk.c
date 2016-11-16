@@ -169,10 +169,10 @@ kiosk_run (void *user_data)
 
     while (!quit) {
 	fprintf (stderr, "[Thread %p] Poll\n", (void *) kiosk_device->thread);
-	MifareTag *tags = freefare_get_tags (nfc_device);
+	FreefareTag *tags = freefare_get_tags (nfc_device);
 	for (int i = 0; (!quit) && tags[i]; i++) {
 	    fprintf (stderr, "[Thread %p] Found TAG\n", (void *) kiosk_device->thread);
-	    if (DESFIRE == freefare_get_tag_type (tags[i])) {
+	    if (MIFARE_DESFIRE == freefare_get_tag_type (tags[i])) {
 		fprintf (stderr, "[Thread %p] TAG is Mifare DESFire\n", (void *) kiosk_device->thread);
 
 		struct ucard *ucard = ucard_new (tags[i]);

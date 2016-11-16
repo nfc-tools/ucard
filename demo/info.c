@@ -31,7 +31,7 @@
 #define GENERAL_AID 0x00000000
 #include "../libucard/ucard_internal.h"
 
-static int       application_setup (MifareTag tag, const MifareDESFireAID aid, MifareDESFireKey access_key);
+static int       application_setup (FreefareTag tag, const MifareDESFireAID aid, MifareDESFireKey access_key);
 static int      on_card_presented ( struct ucard *ucard, struct ucard_application *ucard_application );
 uint8_t user_key_data[] = { 0xd4, 0xa2, 0x3a, 0x64, 0xa8, 0x18, 0xf4, 0xc0, 0x9f, 0xc5, 0xcf, 0x55, 0x73, 0x2d, 0xdd, 0xed };
 uint8_t public_key_data[] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
@@ -60,7 +60,7 @@ main ( void )
 }
 
 static int
-application_setup ( MifareTag tag, const MifareDESFireAID aid, MifareDESFireKey access_key )
+application_setup ( FreefareTag tag, const MifareDESFireAID aid, MifareDESFireKey access_key )
 {
     int res;
 
@@ -82,7 +82,7 @@ on_card_presented ( struct ucard *ucard, struct ucard_application *ucard_applica
     (void) ucard_application;
 
     MifareDESFireKey user_key = mifare_desfire_3des_key_new_with_version ( user_key_data );
-    MifareTag tag = ucard_get_tag(ucard);
+    FreefareTag tag = ucard_get_tag(ucard);
 
     res = mifare_desfire_get_application_ids(tag, &aids, &aid_count);
     printf("********************************************************\n");

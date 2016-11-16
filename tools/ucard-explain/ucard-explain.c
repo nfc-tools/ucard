@@ -26,8 +26,8 @@
 
 #define MAX_NFC_DEVICES 8
 
-int explain_tag (MifareTag tag);
-int explain_application (MifareTag tag, MifareDESFireAID aid, MifareDESFireKey key);
+int explain_tag (FreefareTag tag);
+int explain_application (FreefareTag tag, MifareDESFireAID aid, MifareDESFireKey key);
 
 uint8_t admin_key_data[16];
 
@@ -47,9 +47,9 @@ main (void)
 
     for (size_t n = 0; (!aborting) && (n < nfc_device_count); n++) {
 	nfc_device *nfc_device = nfc_open (ctx, nfc_devices[n]);
-	MifareTag *tags = freefare_get_tags (nfc_device);
+	FreefareTag *tags = freefare_get_tags (nfc_device);
 	for (int i = 0; (!aborting) && tags[i]; i++) {
-	    if (DESFIRE == freefare_get_tag_type (tags[i])) {
+	    if (MIFARE_DESFIRE == freefare_get_tag_type (tags[i])) {
 
 		fprintf (stdout, "Found UCard with UID 0x%s\n", freefare_get_tag_uid (tags[i]));
 
@@ -78,7 +78,7 @@ main (void)
 }
 
 int
-explain_tag (MifareTag tag)
+explain_tag (FreefareTag tag)
 {
     bool aborting = false;
 
@@ -128,7 +128,7 @@ explain_tag (MifareTag tag)
 }
 
 int
-explain_application (MifareTag tag, MifareDESFireAID aid, MifareDESFireKey key)
+explain_application (FreefareTag tag, MifareDESFireAID aid, MifareDESFireKey key)
 {
     char buffer[1024];
     if (mifare_desfire_select_application (tag, aid) < 0) {

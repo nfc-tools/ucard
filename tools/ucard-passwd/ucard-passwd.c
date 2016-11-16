@@ -93,10 +93,10 @@ main (int argc, char *argv[])
     for (size_t n = 0; n < nfc_device_count; n++) {
 	nfc_device *nfc_device = nfc_open (ctx, nfc_devices[n]);
 
-	MifareTag *tags = freefare_get_tags (nfc_device);
+	FreefareTag *tags = freefare_get_tags (nfc_device);
 	for (int i = 0; tags[i]; i++) {
-	    MifareTag tag = tags[i];
-	    if (DESFIRE == freefare_get_tag_type (tag)) {
+	    FreefareTag tag = tags[i];
+	    if (MIFARE_DESFIRE == freefare_get_tag_type (tag)) {
 		uint8_t old_key_data[16];
 		uint8_t new_key_data[16];
 

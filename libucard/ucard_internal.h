@@ -34,7 +34,7 @@ enum libucard_error {
 };
 
 struct ucard {
-    MifareTag tag;
+    FreefareTag tag;
     enum libucard_error last_error;
     uint32_t selected_aid;
     int current_key;
